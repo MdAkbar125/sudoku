@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku Game</title>
+  <link rel="stylesheet" href="fn.css">
+</head>
+<body>
+
+<h1>Sudoku Game</h1>
+<p class="hint">Fill 1–9 • No duplicates in row, column or box</p>
+
+<div class="game-info">
+  <div class="timer">Time: <span id="time">00:00</span></div>
+  <div class="difficulty-selector">
+    <select id="difficulty" onchange="changeDifficulty()">
+      <option value="easy">Easy</option>
+      <option value="medium">Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+  </div>
+</div>
+
+<!-- Error Message Display at TOP -->
+<p id="message"></p>
+
+<div id="board"></div>
+
+<div class="controls">
+  <button onclick="newGame()">New Game</button>
+  <button onclick="resetGame()">Reset</button>
+</div>
+
+<!-- Congratulations Modal -->
+<div id="congratsModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>🎉 Congratulations! 🎉</h2>
+    </div>
+    <div class="modal-body">
+      <p>You solved the Sudoku puzzle!</p>
+      <p class="completion-time">Completion Time: <span id="completionTime">00:00</span></p>
+      <div class="fireworks">
+        <div class="firework"></div>
+        <div class="firework"></div>
+        <div class="firework"></div>
+        <div class="firework"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeCongratsModal()" class="modal-btn">Play Again</button>
+      <button onclick="newGame()" class="modal-btn">New Game</button>
+    </div>
+  </div>
+</div>
+
+<script src="fn.js"></script>
+</body>
+</html>

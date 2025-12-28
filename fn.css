@@ -1,0 +1,395 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  background: linear-gradient(135deg, #f4f6f8 0%, #e2e8f0 100%);
+  margin: 0;
+  padding: 15px;
+  min-height: 100vh;
+  position: relative;
+}
+
+h1 {
+  margin-bottom: 5px;
+  color: #ea580c;
+  font-size: 2.2rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.hint {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.game-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.timer {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1e40af;
+  background: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.difficulty-selector select {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 2px solid #16a34a;
+  font-weight: bold;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.difficulty-selector select:hover {
+  background: #f0fdf4;
+  transform: translateY(-1px);
+}
+
+#message {
+  font-weight: bold;
+  margin: 5px 0 15px 0;
+  min-height: 30px;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: all 0.3s;
+  display: inline-block;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  max-width: 450px;
+  margin: 20px auto;
+  gap: 1px;
+  background: #000;
+  border: 2px solid #000;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+#board input {
+  width: 100%;
+  aspect-ratio: 1;
+  font-size: 20px;
+  text-align: center;
+  border: none;
+  background: white;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+#board input:focus {
+  outline: none;
+  background: #e0f2fe;
+  transform: scale(0.95);
+}
+
+.prefilled {
+  background: #f1f5f9;
+  color: #1e293b;
+  pointer-events: none;
+}
+
+.error {
+  background: #fecaca !important;
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  min-width: 140px;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+}
+
+button:active {
+  transform: translateY(-1px);
+}
+
+button:nth-child(1) { 
+  background-color: #3b82f6; 
+  color: white; 
+}
+
+button:nth-child(2) { 
+  background-color: #16a34a; 
+  color: white; 
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  padding: 40px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 3px solid #ea580c;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.modal-header h2 {
+  color: #ea580c;
+  font-size: 2.5rem;
+  margin: 0 0 20px 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.modal-body {
+  padding: 20px 0;
+}
+
+.modal-body p {
+  font-size: 1.4rem;
+  color: #334155;
+  margin: 10px 0;
+}
+
+.completion-time {
+  font-size: 1.6rem !important;
+  font-weight: bold;
+  color: #1e40af !important;
+  background: #eff6ff;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 25px 0 !important;
+}
+
+.modal-footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.modal-btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 140px;
+}
+
+.modal-btn:first-child {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+  color: white;
+}
+
+.modal-btn:last-child {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+}
+
+.modal-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.modal-btn:active {
+  transform: translateY(-1px);
+}
+
+.fireworks {
+  position: relative;
+  height: 120px;
+  margin: 30px 0;
+  overflow: hidden;
+}
+
+.firework {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: explode 1.5s infinite;
+}
+
+.firework:nth-child(1) {
+  left: 20%;
+  background: #ff0000;
+  animation-delay: 0s;
+}
+
+.firework:nth-child(2) {
+  left: 40%;
+  background: #00ff00;
+  animation-delay: 0.5s;
+}
+
+.firework:nth-child(3) {
+  left: 60%;
+  background: #0000ff;
+  animation-delay: 1s;
+}
+
+.firework:nth-child(4) {
+  left: 80%;
+  background: #ff00ff;
+  animation-delay: 0.75s;
+}
+
+@keyframes explode {
+  0% {
+    transform: translateY(60px) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-60px) scale(0);
+    opacity: 0;
+  }
+}
+
+#board input:nth-child(3n) {
+  border-right: 2px solid #000;
+}
+
+#board input:nth-child(9n) {
+  border-right: none;
+}
+
+#board input:nth-child(n+19):nth-child(-n+27),
+#board input:nth-child(n+46):nth-child(-n+54) {
+  border-bottom: 2px solid #000;
+}
+
+@media (max-width: 480px) {
+  #board {
+    max-width: 90vw;
+  }
+  
+  #board input {
+    font-size: 18px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .controls {
+    gap: 15px;
+  }
+  
+  button {
+    padding: 12px 20px;
+    font-size: 15px;
+    min-width: 120px;
+  }
+  
+  .game-info {
+    gap: 15px;
+  }
+  
+  #message {
+    font-size: 14px;
+    padding: 8px 16px;
+    max-width: 90%;
+  }
+  
+  .modal-content {
+    padding: 25px;
+    width: 95%;
+  }
+  
+  .modal-header h2 {
+    font-size: 2rem;
+  }
+  
+  .modal-body p {
+    font-size: 1.2rem;
+  }
+  
+  .completion-time {
+    font-size: 1.3rem !important;
+  }
+  
+  .modal-btn {
+    padding: 10px 20px;
+    min-width: 120px;
+    font-size: 14px;
+  }
+  
+  .fireworks {
+    height: 80px;
+  }
+}
